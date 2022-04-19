@@ -1,0 +1,152 @@
+body {
+  background: #333333;
+  font-family: -apple-system, 'Segoe UI Light', Ubuntu, Arial, sans-serif;
+  padding: 0;
+}
+
+::-moz-selection{
+  text-shadow: 1px 1px .35vw  #ff0000;
+}
+
+::selection{
+  text-shadow: 1px 1px .35vw #ff0000;
+}
+
+#msg {
+  text-align: center;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate( -50%, -50% );
+  padding: 0;
+  width: 85%;
+}
+
+/*#msg {
+  text-align: center;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  width: 85%;
+}*/
+
+div.text-secondary, .b-example-divider {
+  -webkit-transition: opacity 0.2s ease-in, top 0.3s ease-in;
+  -moz-transition: opacity 0.2s ease-in, top 0.3s ease-in;
+  -o-transition: opacity 0.2s ease-in, top 0.3s ease-in;
+  transition: opacity 0.2s ease-in, top 0.3s ease-in;
+  opacity: 0;
+  position: relative;
+  top: -100px;
+}
+
+div.text-secondary.transition, .b-example-divider.transition {
+  opacity: 1;
+  top: 0;
+}
+
+button.btn-lg {
+  -webkit-transition: all 0.2s ease-in !important;
+  -moz-transition: all 0.2s ease-in !important;
+  -o-transition: all 0.2s ease-in !important;
+  transition: all 0.2s ease-in !important;
+  position: relative;
+  top: 50px;
+  opacity: 0;
+}
+
+button.btn-lg.transition {
+  top: 0;
+  opacity: 1;
+}
+
+#_navbar-toggler, #_evidenceFound {
+  -webkit-transition: box-shadow 0.6s ease-in;
+  -moz-transition: box-shadow 0.6s ease-in;
+  -o-transition: box-shadow 0.6s ease-in;
+  transition: box-shadow 0.6s ease-in;
+  /*box-shadow: 0 0 0 100vmax rgba( 0, 0, 0, 0 );*/
+}
+
+.blackout {
+  box-shadow: 0 0 0 100vmax rgba( 0, 0, 0, 0.8 );
+}
+
+input[type=text] {
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  position: relative;
+  top: 50px;
+  opacity: 0;
+}
+
+input[type=text].transition {
+  top: 0;
+  opacity: 1;
+}
+
+.typed-cursor {
+}
+
+.typed-fade-out {
+}
+
+button {
+  width: 18vw;
+  min-height: 6vh;
+  box-shadow: 3px 3px #4814b5;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+
+button:hover {
+  width: 20vw;
+}
+
+button:active {
+  box-shadow: none;
+  padding-top: 1.3vh;
+  background: linear-gradient( 0deg, #7270ed, #6a11ea );
+  width: 20vw;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+button.Active {
+  box-shadow: none;
+  padding-top: 1.3vh;
+  background: linear-gradient( 0deg, #7270ed, #6a11ea );
+  width: 20vw;
+}
+
+input.Active {
+  box-shadow: none;
+  padding-top: 1.3vh;
+  background: linear-gradient( 0deg, #7270ed, #6a11ea );
+}
+
+.b-example-divider {
+  height: 2vh;
+  background-color: rgba( 0, 0, 0, .1 );
+  border: solid rgba( 0, 0, 0, .15 );
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba( 0, 0, 0, .1 ), inset 0 .125em .5em rgba( 0, 0, 0, .15 );
+}
+
+.modal.fade {
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}

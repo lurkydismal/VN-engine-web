@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru" X-Content-Type-Options="nosniff">
+<head>
+  <meta charset="utf-8">
+
+  <title>Происшествие</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap.min.css">
+  <script type="text/javascript" src="../bootstrap/bootstrap.bundle.min.js"></script>
+
+  <script type="text/javascript" src="../typed/typed.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="./index.css">
+
+  <script type="text/javascript" src="../default_variables.js"></script>
+
+  <script type="text/javascript" src="../std.js"></script>
+
+  <script type="text/javascript" src="../app.js"></script>
+</head>
+<body class="d-flex flex-column h-100">
+
+<header>
+<div class="modal fade text-dark" id="optionsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body bg-dark text-warning fs-5">
+        <label for="volumeMusic" class="form-label">Громкость Музыки: <span id="_volumeMusic">50%</span></label>
+        <input tabindex="-1" type="range" class="form-range" min="0" max="100" value="50" id="volumeMusic" oninput="$( '_volumeMusic' ).innerHTML = this.value + '%'; g_audioMusic.volume = ( this.value / 100 )">
+      <hr>
+        <label for="volumeSounds" class="form-label">Громкость Звуков: <span id="_volumeSounds">50%</span></label>
+        <input tabindex="-1" type="range" class="form-range" min="0" max="100" value="50" id="volumeSounds" oninput="$( '_volumeSounds' ).innerHTML = this.value + '%'; for ( let l_audioSound of g_soundVector ) { l_audioSound.volume = ( this.value / 100 ) }">
+      <hr>
+        <label for="typingSpeed" class="form-label">Скорость Текста: <span id="_typingSpeed">По умолчанию</span></label>
+        <input tabindex="-1" type="range" class="form-range" min="0" max="10" value="0" id="typingSpeed" oninput="$( '_typingSpeed' ).innerHTML = ( this.value > 0 ) ? this.value : 'По умолчанию'">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade text-dark" id="evidenceModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-body bg-dark fs-5">
+        <div class="album">
+          <div class="container col" id="_evidence">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Fixed navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" id="_navbar-toggler" onmouseup="Blackout()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#optionsModal" href="#optionsModal" onmouseup="g_modalHidden = false">Настройки</a>
+        </li>
+        <div class="navbar-nav d-flex">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" onmouseup="_CreateSave()">Сохранение</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onmouseup="_LoadSave( 'lastsave.txt' )">Загрузка</a>
+            </li>
+          </ul>
+        </div>
+        <div class="navbar-nav d-flex d-none" id="_evidenceFound">
+          <ul class="navbar-nav">
+            <li class="nav-item ">
+              <a class="nav-link" data-bs-toggle="modal" data-bs-target="#evidenceModal" href="#evidenceModal" onmouseup="g_modalHidden = false">Доказательства</a>
+            </li>
+          </ul>
+        </div>
+      </ul>
+      <!-- <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="1000-7" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Submit</button>
+      </form> -->
+    </div>
+  </div>
+</nav>
+</header>
+
+<!-- Begin page content -->
+<main class="flex-shrink-0" onmouseup="g_skipped = g_needSkip">
+  <div class="container" id="msg">
+  </div>
+</main>
+
+<script type="text/javascript" defer>
+  document.ondragstart = () => false;
+
+  for ( let _div of document.querySelectorAll( "div.transition" ) ) {
+    _div.parentNode.removeChild( _div );
+  }
+
+  var g_modalHidden = true;
+
+  window.addEventListener( "hidden.bs.modal" , function () {
+    g_modalHidden = true;
+  });
+
+  window.addEventListener( 'keydown', function( _event ) {
+    g_skipped = ( ( g_modalHidden ) && ( g_needSkip ) );
+
+    if ( window.location.protocol != "file:" ) {
+      if ( event.ctrlKey || event.metaKey ) {
+        switch ( String.fromCharCode( event.which ).toLowerCase() ) {
+          case 's':
+          {
+            event.preventDefault();
+
+            // var zip = new JSZip();
+
+            // zip.folder( "evidence" ).loadAsync( l_appBase64 , { base64: true, checkCRC32 : true, createFolders : true } )
+            // .then( function( _content ) {
+            //   zip.file( "index.html", document.documentElement.outerHTML.toString() );
+
+            //   zip.generateAsync( { type : "blob" } )
+            //   .then( function ( _content ) {
+            //     saveAs( _content, "app.zip" );
+            //   } );
+            // } );
+
+            break;
+          }
+        }
+      }
+    }
+  } );
+
+  _SetCookie( "hasCookie", "hasCookie" );
+
+  if ( !!_GetCookie( "hasCookie" ) ) {
+    for ( let _div of document.querySelectorAll( "#_hasCookie" ) ) {
+      _div.classList.remove( "d-none" );
+    }
+  }
+</script>
+
+<script id="_scriptLabel" defer>
+  if ( window.location.protocol != "file:" ) {
+    document.querySelectorAll( "script[src]" ).forEach(
+      function( _script ) {
+        _ReadFile( _script.src, function( _text ) {
+          _script.innerHTML = _text;
+        } );
+
+        _script.removeAttribute( "src" );
+      }
+    );
+  }
+
+  $( "_scriptLabel" ).parentNode.removeChild( $( "_scriptLabel" ) );
+</script>
+
+<script id="_styleLabel" defer>
+  if ( window.location.protocol != "file:" ) {
+    document.querySelectorAll( "link[href]" ).forEach(
+      function( _stylesheet ) {
+        let l_element = document.createElement( "style" );
+
+        _ReadFile( _stylesheet.href, function( _text ) {
+          l_element.innerHTML = _text;
+        } );
+
+        _stylesheet.parentNode.replaceChild( l_element, _stylesheet );
+      }
+    );
+  }
+
+  $( "_styleLabel" ).parentNode.removeChild( $( "_styleLabel" ) );
+</script>
+
+<script defer>
+  ( async () => {
+    await new Promise(
+      ( _resolve ) => start( _resolve )
+    )
+    end();
+  } )();
+</script>
+
+</body>
+
+</html>
