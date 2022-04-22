@@ -1,25 +1,18 @@
-    # Declare characters used by this game.    
-define m = Character( [ name : "Me", color: "#c8c8ff" ] ) (; define s = Character([name:"Sylvie",color:"#c8ffc8"]) (; # TEST
+# Declare characters used by this game.    
+define m = Character( [ name : "Me", color : "#c8c8ff" ] ) (;
+define s = Character( [ name : "Sylvie", color : "#c8ffc8" ] ) (;
 
 # This is a variable that is True if you've compared a VN to a book, and False
 # otherwise.
 default book = false;
-default artlook = true;
-default books = 10;
-
-
-
-
-
-
 
 # The game starts here.
-label start{
+label start {
 
     # Start by playing some music.
     play music test;
 
-    scene bg lecturehall;
+    scene bg lecturehall
     with fade;
 
     "It's only when I hear the sounds of shuffling feet and supplies being put away that I realize that the lecture's over.";
@@ -30,12 +23,12 @@ label start{
 
     "It's a question that I've been meaning to ask a certain someone.";
 
-    scene bg uni;
+    scene bg uni
     with fade;
 
     "When we come out of the university, I spot her right away.";
 
-    show sylvie green normal;
+    show sylvie green normal
     with dissolve;
 
     "I've known Sylvie since we were kids. She's got a big heart and she's always been a good friend to me.";
@@ -44,12 +37,20 @@ label start{
 
     "More than just talking, more than just walking home together when our classes end.";
 
-    menu { "As soon as she catches my eye, I decide..."; "To ask her right away."{ jump rightaway; } "To ask her later."{ jump later;
+    menu {
+        "As soon as she catches my eye, I decide...";
+        
+        "To ask her right away."{
+            jump rightaway;
+        }
+        
+        "To ask her later."{
+            jump later;
         }
     }
 }
 
-label rightaway      {
+label rightaway {
 
     show sylvie green smile;
 
@@ -63,16 +64,7 @@ label rightaway      {
 
     s "Sure!");
 
-    javascript {
-        function test( id ) {
-            let a = 1;
-            let b = 2;
-            let c = ( a === b );
-            return ( c );
-        }
-    }
-
-    scene bg meadow;
+    scene bg meadow
     with fade;
 
     "After a short while, we reach the meadows just outside the neighborhood where we both live.";
@@ -83,7 +75,7 @@ label rightaway      {
 
     m "Hey... Umm...");
 
-    show sylvie green smile;
+    show sylvie green smile
     with dissolve;
 
     "She turns to me and smiles. She looks so welcoming that I feel my nervousness melt away.";
@@ -116,7 +108,7 @@ label rightaway      {
     }
 }
 
-label game{
+label game {
 
     m "It's a kind of videogame you can play on your computer or a console." );
 
@@ -141,9 +133,13 @@ label game{
     jump marry;
 }
 
-label book{
+label book {
 
     $ book = true;
+
+    javascript {
+        console.log( `book: ${ book }` );
+    }
 
     m "It's like an interactive book that you can read on a computer or a console.");
 
@@ -168,20 +164,19 @@ label book{
     jump marry;
 }
 
-label marry{
+label marry {
 
-    scene black;
+    scene black
     with dissolve;
 
     "And so, we become a visual novel creating duo.";
 
-    scene bg club;
+    scene bg club
     with dissolve;
 
     "Over the years, we make lots of games and have a lot of fun making them.";
 
-    if book{
-
+    if book {
         "Our first game is based on one of Sylvie's ideas, but afterwards I get to come up with stories of my own, too.";
     }
 
@@ -189,7 +184,7 @@ label marry{
 
     "And one day...";
 
-    show sylvie blue normal;
+    show sylvie blue normal
     with dissolve;
 
     s "Hey...");
@@ -234,7 +229,7 @@ label marry{
 
     s "You worry too much. If only this were a visual novel and I could pick an option to give you more courage!");
 
-    scene black;
+    scene black
     with dissolve;
 
     "We get married shortly after that.";
@@ -245,14 +240,16 @@ label marry{
 
     "Good Ending.";
 
+    $ console.log( "Good Ending." );
+
     return;
 }
 
-label later{
+label later {
 
     "I can't get up the nerve to ask right now. With a gulp, I decide to ask her later.";
 
-    scene black;
+    scene black
     with dissolve;
 
     "But I'm an indecisive person.";
@@ -262,6 +259,8 @@ label later{
     "I guess I'll never know the answer to my question now...";
 
     "Bad Ending.";
+
+    $ console.log( "Bad Ending." );
 
     return;
 }

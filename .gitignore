@@ -5,5 +5,3 @@ deprecated/
 *.txt
 assets/app.js
 assets/default_variables.js
-assets/app/audio/
-assets/app/evidence/

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru" X-Content-Type-Options="nosniff">
+<html lang="en" X-Content-Type-Options="nosniff">
 <head>
   <meta charset="utf-8">
 
-  <title>Происшествие</title>
+  <title>Example</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,31 +23,19 @@
 <body class="d-flex flex-column h-100">
 
 <header>
+<!-- Options modal -->
 <div class="modal fade text-dark" id="optionsModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body bg-dark text-warning fs-5">
-        <label for="volumeMusic" class="form-label">Громкость Музыки: <span id="_volumeMusic">50%</span></label>
-        <input tabindex="-1" type="range" class="form-range" min="0" max="100" value="50" id="volumeMusic" oninput="$( '_volumeMusic' ).innerHTML = this.value + '%'; g_audioMusic.volume = ( this.value / 100 )">
+        <label for="volumeMusic" class="form-label">Music Volume: <span id="_volumeMusic">50%</span></label>
+        <input tabindex="-1" type="range" class="form-range" min="0" max="100" value="50" id="volumeMusic" oninput="$( '_volumeMusic' ).innerHTML = ( this.value + '%' ); g_audioMusic.volume = ( this.value / 100 )">
       <hr>
-        <label for="volumeSounds" class="form-label">Громкость Звуков: <span id="_volumeSounds">50%</span></label>
-        <input tabindex="-1" type="range" class="form-range" min="0" max="100" value="50" id="volumeSounds" oninput="$( '_volumeSounds' ).innerHTML = this.value + '%'; for ( let l_audioSound of g_soundVector ) { l_audioSound.volume = ( this.value / 100 ) }">
+        <label for="volumeSounds" class="form-label">Sound Volume: <span id="_volumeSounds">50%</span></label>
+        <input tabindex="-1" type="range" class="form-range" min="0" max="100" value="50" id="volumeSounds" oninput="$( '_volumeSounds' ).innerHTML = ( this.value + '%' ); for ( let l_audioSound of g_soundVector ) { l_audioSound.volume = ( this.value / 100 ) }">
       <hr>
-        <label for="typingSpeed" class="form-label">Скорость Текста: <span id="_typingSpeed">По умолчанию</span></label>
-        <input tabindex="-1" type="range" class="form-range" min="0" max="10" value="0" id="typingSpeed" oninput="$( '_typingSpeed' ).innerHTML = ( this.value > 0 ) ? this.value : 'По умолчанию'">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade text-dark" id="evidenceModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-body bg-dark fs-5">
-        <div class="album">
-          <div class="container col" id="_evidence">
-          </div>
-        </div>
+        <label for="typingSpeed" class="form-label">Text Speed: <span id="_typingSpeed">Default</span></label>
+        <input tabindex="-1" type="range" class="form-range" min="0" max="10" value="0" id="typingSpeed" oninput="$( '_typingSpeed' ).innerHTML = ( this.value > 0 ) ? this.value : 'Default'">
       </div>
     </div>
   </div>
@@ -63,30 +51,19 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#optionsModal" href="#optionsModal" onmouseup="g_modalHidden = false">Настройки</a>
+          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#optionsModal" href="#optionsModal" onmouseup="g_modalHidden = false">Settings</a>
         </li>
         <div class="navbar-nav d-flex">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" onmouseup="_CreateSave()">Сохранение</a>
+              <a class="nav-link" onmouseup="_CreateSave()">Q.Save</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" onmouseup="_LoadSave( 'lastsave.txt' )">Загрузка</a>
-            </li>
-          </ul>
-        </div>
-        <div class="navbar-nav d-flex d-none" id="_evidenceFound">
-          <ul class="navbar-nav">
-            <li class="nav-item ">
-              <a class="nav-link" data-bs-toggle="modal" data-bs-target="#evidenceModal" href="#evidenceModal" onmouseup="g_modalHidden = false">Доказательства</a>
+              <a class="nav-link" onmouseup="_LoadSave( 'lastsave.txt' )">Q.Load</a>
             </li>
           </ul>
         </div>
       </ul>
-      <!-- <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="1000-7" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Submit</button>
-      </form> -->
     </div>
   </div>
 </nav>
@@ -98,50 +75,43 @@
   </div>
 </main>
 
+<!-- Gameplay logic -->
 <script type="text/javascript" defer>
   document.ondragstart = () => false;
 
+  // Remove all novel boxes if game loaded from local file
   for ( let _div of document.querySelectorAll( "div.transition" ) ) {
     _div.parentNode.removeChild( _div );
   }
 
+  // All modal dialogues are hidden
   var g_modalHidden = true;
 
   window.addEventListener( "hidden.bs.modal" , function () {
     g_modalHidden = true;
-  });
+  } );
 
+  // Keyboard event handler
   window.addEventListener( 'keydown', function( _event ) {
     g_skipped = ( ( g_modalHidden ) && ( g_needSkip ) );
 
-    if ( window.location.protocol != "file:" ) {
-      if ( event.ctrlKey || event.metaKey ) {
-        switch ( String.fromCharCode( event.which ).toLowerCase() ) {
-          case 's':
-          {
-            event.preventDefault();
+    // Prevent page saving
+    if ( event.ctrlKey || event.metaKey ) {
+      switch ( String.fromCharCode( event.which ).toLowerCase() ) {
+        case 's':
+        {
+          event.preventDefault();
 
-            // var zip = new JSZip();
-
-            // zip.folder( "evidence" ).loadAsync( l_appBase64 , { base64: true, checkCRC32 : true, createFolders : true } )
-            // .then( function( _content ) {
-            //   zip.file( "index.html", document.documentElement.outerHTML.toString() );
-
-            //   zip.generateAsync( { type : "blob" } )
-            //   .then( function ( _content ) {
-            //     saveAs( _content, "app.zip" );
-            //   } );
-            // } );
-
-            break;
-          }
+          break;
         }
       }
     }
   } );
 
+  // Check cookie availability
   _SetCookie( "hasCookie", "hasCookie" );
 
+  // Remove "display: none" from all elements with ID
   if ( !!_GetCookie( "hasCookie" ) ) {
     for ( let _div of document.querySelectorAll( "#_hasCookie" ) ) {
       _div.classList.remove( "d-none" );
@@ -149,9 +119,10 @@
   }
 </script>
 
+<!-- Replace all JavaScript references to their content -->
 <script id="_scriptLabel" defer>
   if ( window.location.protocol != "file:" ) {
-    document.querySelectorAll( "script[src]" ).forEach(
+    document.querySelectorAll( "script[ src ]" ).forEach(
       function( _script ) {
         _ReadFile( _script.src, function( _text ) {
           _script.innerHTML = _text;
@@ -165,13 +136,14 @@
   $( "_scriptLabel" ).parentNode.removeChild( $( "_scriptLabel" ) );
 </script>
 
+<!-- Replace all CSS references to their content -->
 <script id="_styleLabel" defer>
   if ( window.location.protocol != "file:" ) {
-    document.querySelectorAll( "link[href]" ).forEach(
+    document.querySelectorAll( "link[ href ]" ).forEach(
       function( _stylesheet ) {
         let l_element = document.createElement( "style" );
 
-        _ReadFile( _stylesheet.href, function( _text ) {
+        _readFile( _stylesheet.href, function( _text ) {
           l_element.innerHTML = _text;
         } );
 
@@ -183,6 +155,7 @@
   $( "_styleLabel" ).parentNode.removeChild( $( "_styleLabel" ) );
 </script>
 
+<!-- Game launch -->
 <script defer>
   ( async () => {
     await new Promise(

@@ -1,17 +1,23 @@
-var g_characterName = "";
-var g_textColor = "";
-var g_divCounter = 0;
-var g_loadDivCounter = -1;
-var g_menuCounter = 0;
-var g_menuChoices = [];
-var g_even = false;
-var g_skipped = false;
-var g_needSkip = false;
+var g_menuChoices    = [];
+var g_soundVector    = [];
+var g_audioMusic;    // new Audio()
+var g_characterName  = "";
+var g_textColor      = "";
+var g_even           = false;
+var g_skipped        = false;
+var g_needSkip       = false;
 var g_typingComplete = true;
+var g_menuCounter    = 0;
+var g_divCounter     = 0;
+var g_loadDivCounter = -1;
 
-const MediaType = {
-  MUSIC : 1,
-  SOUND : 2,
+const media_t = {
+  music : 1,
+  sound : 2,
+};
+
+const appearance_t = {
+  fade : 1,
 };
 
 function $( _id ) {
@@ -19,10 +25,6 @@ function $( _id ) {
 }
 
 const sleep = ( _delay ) => new Promise( ( _resolve ) => setTimeout( _resolve, _delay ) );
-
-function getMessage() {
-  return ("Hello from JS!");
-}
 
 function _TransitionEndEventName() {
   let l_transitions = {
@@ -106,7 +108,7 @@ function _ReadFile( _path, _callback = console.log ) {
     let l_xmlHttp = new XMLHttpRequest();
 
     l_xmlHttp.onreadystatechange = function() {
-      if ( ( l_xmlHttp.readyState == 4 ) && ( l_xmlHttp.status == 200 ) ) {
+      if ( ( l_xmlHttp.readyState == XMLHttpRequest.DONE ) && ( l_xmlHttp.status == 200 ) ) {
         _callback( l_xmlHttp.responseText );
       }
     };
@@ -129,7 +131,6 @@ function _ParseSave( _lastSave ) {
   console.log ( _lastSave );
   if ( typeof _lastSave !== "undefined" ) {
     let l_text = "";
-    let l_commaCount = 0;
 
     g_menuChoices = [];
 
@@ -147,7 +148,6 @@ function _ParseSave( _lastSave ) {
         } else if ( _symbol == "\," ) {
           g_menuChoices.push( unescape( l_text ) );
 
-          l_commaCount++;
           l_text = "";
 
         } else {
@@ -193,8 +193,8 @@ function _GetCountOfChildElements( _parent ) {
     return ( l_relevantChildCount );
 }
 
-function _ChooseMenuInput( _this, _num ) {
-  for ( let _div of document.querySelectorAll( "._count" + _num ) ) {
+function _ChooseMenuInput( _this, _index ) {
+  for ( let _div of document.querySelectorAll( "._count" + _index ) ) {
     _div.classList.add( "disabled" );
     _div.removeAttribute( "onclick" );
   }
@@ -358,35 +358,31 @@ function _TypingText( _selector, _text ) {
      * @param {Typed} self
      */
     onDestroy: ( self ) => { console.log( "destroy" ); }
-  });
+  } );
 }
 
-var g_soundVector = [];
-var g_audioMusic;
-
-function _PlayBase64( _type, _base64, _fileType = "mp3", loop = true ) {
+function _PlayBase64( _type, _base64, _fileType = "mp3", _loop = true ) {
   switch ( _type ) {
-    case MediaType.MUSIC:
+    case media_t.music:
     {
       if ( g_audioMusic ) {
         _Stop( _type );
       }
 
-      g_audioMusic = new Audio( `data:audio/${ _fileType };base64, ${ _base64 }` );
-      g_audioMusic.volume = ( $( "volumeMusic" ).value / 100 );
-      g_audioMusic.loop = loop;
+      g_audioMusic          = new Audio( `data:audio/${ _fileType };base64, ${ _base64 }` );
+      g_audioMusic.volume   = ( $( "volumeMusic" ).value / 100 );
+      g_audioMusic.loop     = _loop;
       g_audioMusic.autoplay = true;
 
       break;
     }
 
-    case MediaType.SOUND:
+    case media_t.music:
     {
-      let l_audioSound = new Audio( `data:audio/${ _fileType };base64, ${ _base64 }` );
-      l_audioSound.volume = ( $( "volumeSounds" ).value / 100 );
+      let l_audioSound      = new Audio( `data:audio/${ _fileType };base64, ${ _base64 }` );
+      l_audioSound.volume   = ( $( "volumeSounds" ).value / 100 );
       l_audioSound.autoplay = true;
-
-      l_audioSound.onended = ( _event ) => {
+      l_audioSound.onended  = ( _event ) => {
         g_soundVector.pop();
       };
 
@@ -402,31 +398,30 @@ function _PlayBase64( _type, _base64, _fileType = "mp3", loop = true ) {
   };
 }
 
-function _Play( _type, _path, loop = true ) {
+function _Play( _type, _path, _loop = true ) {
   switch ( _type ) {
-    case MediaType.MUSIC:
+    case media_t.music:
     {
       if ( g_audioMusic ) {
         _Stop( _type );
       }
 
-      g_audioMusic = new Audio( `./audio/${ _path }` );
-      g_audioMusic.volume = ( $( "volumeMusic" ).value / 100 );
+      g_audioMusic          = new Audio( `./audio/${ _path }` );
+      g_audioMusic.volume   = ( $( "volumeMusic" ).value / 100 );
+      g_audioMusic.loop     = _loop;
       g_audioMusic.autoplay = true;
-      g_audioMusic.loop = loop;
 
       console.log( g_audioMusic );
 
       break;
     }
 
-    case MediaType.SOUND:
+    case media_t.sound:
     {
-      let l_audioSound = new Audio( `./audio/${ _path }` );
-      l_audioSound.volume = ( $( "volumeSounds" ).value / 100 );
+      let l_audioSound      = new Audio( `./audio/${ _path }` );
+      l_audioSound.volume   = ( $( "volumeSounds" ).value / 100 );
       l_audioSound.autoplay = true;
-
-      l_audioSound.onended = ( _event ) => {
+      l_audioSound.onended  = ( _event ) => {
         g_soundVector.pop();
       };
 
@@ -446,17 +441,17 @@ function _Play( _type, _path, loop = true ) {
 
 function _Pause( _type ) {
   switch ( _type ) {
-    case MediaType.MUSIC:
+    case media_t.music:
     {
       g_audioMusic.pause();
 
       break;
     }
 
-    case MediaType.SOUND:
+    case media_t.sound:
     {
-      for ( let l_audioSound of g_soundVector ) {
-        l_audioSound.pause();
+      for ( let _audioSound of g_soundVector ) {
+        _audioSound.pause();
       }
 
       break;
@@ -471,7 +466,7 @@ function _Pause( _type ) {
 
 function _Stop( _type ) {
   switch ( _type ) {
-    case MediaType.MUSIC:
+    case media_t.music:
     {
       g_audioMusic.pause();
       g_audioMusic.currentTime = 0;
@@ -479,11 +474,11 @@ function _Stop( _type ) {
       break;
     }
 
-    case MediaType.SOUND:
+    case media_t.sound:
     {
-      for ( let l_audioSound of g_soundVector ) {
-        l_audioSound.pause();
-        l_audioSound.currentTime = 0;
+      for ( let _audioSound of g_soundVector ) {
+        _audioSound.pause();
+        _audioSound.currentTime = 0;
       }
 
       break;
@@ -498,17 +493,17 @@ function _Stop( _type ) {
 
 function _Resume( _type ) {
   switch ( _type ) {
-    case MediaType.MUSIC:
+    case media_t.music:
     {
       g_audioMusic.resume();
 
       break;
     }
 
-    case MediaType.SOUND:
+    case media_t.sound:
     {
-      for ( let l_audioSound of g_soundVector ) {
-        l_audioSound.resume();
+      for ( let _audioSound of g_soundVector ) {
+        _audioSound.resume();
       }
 
       break;
@@ -531,7 +526,7 @@ function _Say( _text ) {
   }
 
   if ( !!g_characterName ) {
-    l_characterName = `<h1 class=\"display-5 fw-bold text-white\">${ g_characterName }</h1>`; // zxc
+    l_characterName = `<h1 class=\"display-5 fw-bold text-white\">${ g_characterName }</h1>`;
   }
 
   g_typingComplete = false;
@@ -548,32 +543,78 @@ function _Say( _text ) {
 "<div class=\"b-example-divider\" id=\"_divider" + g_divCounter + "_say\"></div>";
 
   g_characterName = "";
-  g_textColor = "";
+  g_textColor     = "";
 
   setTimeout( () => {
-    $( "_div" + g_divCounter + "_say" ).classList.add( "transition" );
+    $( "_div"     + g_divCounter + "_say" ).classList.add( "transition" );
     $( "_divider" + g_divCounter + "_say" ).classList.add( "transition" );
-    $( "_div" + g_divCounter + "_say" ).scrollIntoView();
-
+    $( "_div"     + g_divCounter + "_say" ).scrollIntoView();
+    
     if ( !!$( "_div" + ( g_divCounter - 5 ) + "_say" ) ) {
-      $( "_div" + ( g_divCounter - 5 ) + "_say" ).parentNode.removeChild( $( "_div" + ( g_divCounter - 5 ) + "_say" ) );
+      $( "_div"     + ( g_divCounter - 5 ) + "_say" ).parentNode.removeChild( $( "_div"     + ( g_divCounter - 5 ) + "_say" ) );
       $( "_divider" + ( g_divCounter - 5 ) + "_say" ).parentNode.removeChild( $( "_divider" + ( g_divCounter - 5 ) + "_say" ) );
     }
-
+    
     _TypingText( "#_typing" + g_divCounter, _text );
-  }, 20 );
+  } );
 }
 
-function _SayEx( _text, beforeText = "<br>" ) {
+function _SayEx( _text, _beforeText = "<br>" ) {
   if ( g_divCounter < g_loadDivCounter ) {
     return;
   }
-
+  
   $( "_typing" + g_divCounter ).innerHTML += "<span id=\"_typingEx" + g_divCounter + "\"></span>";
-  _TypingText( "#_typingEx" + g_divCounter + ":last-of-type", beforeText + _text );
+  
+  _TypingText( "#_typingEx" + g_divCounter + ":last-of-type", _beforeText + _text );
 }
 
-async function _MenuName( _text ) {
+function _Scene( _fileName = "none", _appearance = appearance_t.fade ) {
+  async function l_TransitionEndCallback() {
+    document.body.removeEventListener( _TransitionEndEventName(), l_TransitionEndCallback );
+
+    await sleep( 0 );
+
+    document.body.style.backgroundImage = _fileName;
+
+    switch ( _appearance ) {
+      case appearance_t.fade:
+      {
+        document.body.style.opacity = 1.0;
+
+        break;
+      }
+
+      default:
+      {
+        throw ( `On End.\n_filename: \"${ _fileName }\", _appearance: \"${ _appearance }\"` );
+      }
+    }
+  }
+
+  document.body.addEventListener( _TransitionEndEventName(), l_TransitionEndCallback );
+
+  setTimeout( () => {
+    switch ( _appearance ) {
+      case appearance_t.fade:
+      {
+        document.body.style.opacity = 0.0;
+
+        break;
+      }
+
+      default:
+      {
+        throw ( `On Begin.\n_filename: \"${ _fileName }\", _appearance: \"${ _appearance }\"` );
+      }
+    }
+  } );
+}
+
+function _Show( _filename = "none", _appearance = "fade" ) {
+}
+
+function _MenuName( _text ) {
   g_menuCounter++;
 
   if ( g_divCounter < g_loadDivCounter ) {
@@ -599,18 +640,18 @@ async function _MenuName( _text ) {
 "<div class=\"b-example-divider\" id=\"_divider" + g_menuCounter + "_menu\"></div>";
 
     g_characterName = "";
-    g_textColor = "";
+    g_textColor     = "";
 
     setTimeout( () => {
-      $( "_div" + g_menuCounter + "_menu" ).classList.add( "transition" );
+      $( "_div"     + g_menuCounter + "_menu" ).classList.add( "transition" );
       $( "_divider" + g_menuCounter + "_menu" ).classList.add( "transition" );
-      $( "_div" + g_menuCounter + "_menu" ).scrollIntoView();
+      $( "_div"     + g_menuCounter + "_menu" ).scrollIntoView();
 
       if ( !!$( "_div" + ( g_divCounter - 1 ) + "_menu" ) ) {
-        $( "_div" + ( g_menuCounter - 1 ) + "_menu" ).parentNode.removeChild( $( "_div" + ( g_menuCounter - 1 ) + "_menu" ) );
+        $( "_div"     + ( g_menuCounter - 1 ) + "_menu" ).parentNode.removeChild( $( "_div"     + ( g_menuCounter - 1 ) + "_menu" ) );
         $( "_divider" + ( g_menuCounter - 1 ) + "_menu" ).parentNode.removeChild( $( "_divider" + ( g_menuCounter - 1 ) + "_menu" ) );
       }
-    }, 20 );
+    } );
   }
 }
 
@@ -629,10 +670,12 @@ async function _MenuLabel( _text, _function ) {
         for ( let _div of document.querySelectorAll( "input._count" + g_menuCounter ) ) {
           _div.classList.add( "transition" );
         }
-      }, 20 );
+      } );
 
     } else {
-      let l_even = ( g_even ) ? "light" : "info";
+      let l_even = ( g_even )
+          ? "light"
+          : "info";
 
       g_even = !g_even;
 
@@ -651,7 +694,7 @@ async function _MenuLabel( _text, _function ) {
         for ( let _div of document.querySelectorAll( "button._count" + g_menuCounter ) ) {
           _div.classList.add( "transition" );
         }
-      }, 20 );
+      } );
     }
   } else {
     if ( g_menuChoices[ g_menuCounter - 1 ] == _text ) {
@@ -683,5 +726,38 @@ function Character( { name = "", color = "#ffffff" } = {} ) {
   g_characterName = name;
   g_textColor     = "style=\"color: " + color + "\"";
 
-  return _Say;
+  return ( _Say );
 }
+
+const TransitionEndEventName = ()     => _TransitionEndEventName();
+const SetCookie    = ( _key, _value ) => _SetCookie( _key, _value );
+const GetCookie    = ( _key )         => _GetCookie( _key );
+const DeleteCookie = ( _key )         => _DeleteCookie( _key );
+const DownloadFile = ( _text, _filename = "save.js" )   => _DownloadFile( _text, _filename );
+const ReadFile     = ( _path, _callback = console.log ) => _ReadFile( _path, _callback );
+const LoadSave     = ( _path )     => _LoadSave( _path );
+const ParseSave    = ( _lastSave ) => _ParseSave( _lastSave );
+const CreateSave   = ()            => _CreateSave();
+const GenerateSave = ()            => _GenerateSave();
+const Open         = ( _file )     => _Open( _file );
+const GetCountOfChildElements = ( _parent )       => _GetCountOfChildElements( _parent );
+const ChooseMenuInput         = ( _this, _index ) => _ChooseMenuInput( _this, _index );
+const TypingText   = ( _selector, _text )         => _TypingText( _selector, _text );
+const PlayBase64   = ( _type, _base64, _fileType = "mp3", _loop = true ) => _PlayBase64( _type, _base64, _fileType, _loop = true );
+const Play         = ( _type, _path, _loop = true ) => _Play( _type, _path, _loop );
+const Pause        = ( _type ) => _Pause( _type );
+const Stop         = ( _type ) => _Stop( _type );
+const Resume       = ( _type ) => _Resume( _type );
+const Say          = ( _text ) => _Say( _text );
+const SayEx        = ( _text, _beforeText = "<br>" ) => _SayEx( _text, _beforeText );
+const Scene        = ( _fileName = "none", _appearance = null ) => _Scene( _fileName, _appearance );
+const Show         = ( _filename = null, _appearance = null ) => _Show( _filename, _appearance );
+const MenuName = ( _text ) => _MenuName( _text );
+const MenuLabel = ( _text, _function ) => new Promise( async ( _resolve ) => {
+  await _MenuLabel( _text, _function );
+  _resolve();
+} );
+const WaitInput = ( delay = 500 ) => new Promise( async ( _resolve ) => {
+  await _WaitInput( delay );
+  _resolve();
+} );
