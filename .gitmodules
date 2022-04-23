@@ -1,0 +1,3 @@
+[submodule "VN-script-parser"]
+	path = VN-script-parser
+	url = https://github.com/lurkydismal/VN-script-parser.git
