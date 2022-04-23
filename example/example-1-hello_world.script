@@ -1,0 +1,14 @@
+# Basic script
+label start {
+    "Hello, World!";
+
+    $ console.log( "Hello, World!" );
+
+    return;
+}
+
+label end {
+    "The end.";
+
+    # At the end of this label player will be returned to main menu.
+}

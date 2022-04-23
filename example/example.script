@@ -2,7 +2,7 @@
 define m = Character( [ name : "Me", color : "#c8c8ff" ] ) (;
 define s = Character( [ name : "Sylvie", color : "#c8ffc8" ] ) (;
 
-# This is a variable that is True if you've compared a VN to a book, and False
+# This is a variable that is true if you've compared a VN to a book, and false
 # otherwise.
 default book = false;
 
@@ -263,4 +263,8 @@ label later {
     $ console.log( "Bad Ending." );
 
     return;
+}
+
+label end {
+    # Labels can be empty
 }
