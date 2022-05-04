@@ -545,7 +545,7 @@ function _Say( _text ) {
   g_characterName = "";
   g_textColor     = "";
 
-  setTimeout( () => {
+  setTimeout( async () => {
     $( "_div"     + g_divCounter + "_say" ).classList.add( "transition" );
     $( "_divider" + g_divCounter + "_say" ).classList.add( "transition" );
     $( "_div"     + g_divCounter + "_say" ).scrollIntoView();
@@ -556,10 +556,12 @@ function _Say( _text ) {
     }
     
     _TypingText( "#_typing" + g_divCounter, _text );
+
+    await _WaitInput();
   } );
 }
 
-function _SayEx( _text, _beforeText = "<br>" ) {
+async function _SayEx( _text, _beforeText = "<br>" ) {
   if ( g_divCounter < g_loadDivCounter ) {
     return;
   }
@@ -567,6 +569,8 @@ function _SayEx( _text, _beforeText = "<br>" ) {
   $( "_typing" + g_divCounter ).innerHTML += "<span id=\"_typingEx" + g_divCounter + "\"></span>";
   
   _TypingText( "#_typingEx" + g_divCounter + ":last-of-type", _beforeText + _text );
+
+  await _WaitInput();
 }
 
 function _Scene( _fileName = "none", _appearance = appearance_t.fade ) {
@@ -611,7 +615,7 @@ function _Scene( _fileName = "none", _appearance = appearance_t.fade ) {
   } );
 }
 
-function _Show( _filename = "none", _appearance = "fade" ) {
+function _Show( _filename = "none", _appearance = appearance_t.fade ) {
 }
 
 function _MenuName( _text ) {
