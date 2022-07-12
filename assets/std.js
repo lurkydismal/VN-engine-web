@@ -91,7 +91,7 @@ function _ReadFile( _path, _callback = console.log ) {
 
       l_fileReaderInstance.addEventListener( "load", function( _event ) {
         _callback( _event.target.result );
-      });
+      } );
 
       l_fileReaderInstance.readAsText( l_fileBlob );
     };
