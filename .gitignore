@@ -3,5 +3,3 @@
 deprecated/
 *.bak
 *.txt
-assets/app.js
-assets/default_variables.js
