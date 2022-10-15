@@ -7,10 +7,15 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!--
+        Code and documentation copyright 2011–2022 the Bootstrap Authors
+        and Twitter, Inc. Code released under the MIT License.
+        Docs released under Creative Commons.
+    -->
   <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
   <script src="../bootstrap/bootstrap.bundle.min.js"></script>
 
-  <script src="../typed/typed.min.js"></script>
+  <script src="../typed.js/lib/typed.min.js"></script>
 
   <link rel="stylesheet" href="./index.css">
 
@@ -155,12 +160,12 @@
   $( "_styleLabel" ).parentNode.removeChild( $( "_styleLabel" ) );
 </script>
 
-<!-- Game launch -->
+<!-- Game -->
 <script defer>
   ( async () => {
     await new Promise(
       ( _resolve ) => start( _resolve )
-    )
+    );
     end();
   } )();
 </script>

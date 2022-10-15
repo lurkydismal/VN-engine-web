@@ -516,7 +516,7 @@ function _Resume( _type ) {
   };
 }
 
-function _Say( _text ) {
+async function _Say( _text ) {
   let l_characterName = "";
 
   g_divCounter++;
@@ -556,9 +556,9 @@ function _Say( _text ) {
     }
     
     _TypingText( "#_typing" + g_divCounter, _text );
-
-    await _WaitInput();
   } );
+
+  await _WaitInput();
 }
 
 async function _SayEx( _text, _beforeText = "<br>" ) {
@@ -732,6 +732,10 @@ function Character( { name = "", color = "#ffffff" } = {} ) {
 
   return ( _Say );
 }
+
+// Dart compatibility
+
+// Function aliases
 
 const TransitionEndEventName = ()     => _TransitionEndEventName();
 const SetCookie    = ( _key, _value ) => _SetCookie( _key, _value );
