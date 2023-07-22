@@ -1,3 +1,4 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/402a765a90e84f88bafff0fa8a23fdae)](https://app.codacy.com/gh/lurkydismal/VN-engine-web/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 # VN-engine-web
 
 > Not that Visual, but Novel engine.
