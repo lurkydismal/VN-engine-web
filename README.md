@@ -1,5 +1,7 @@
 # VN-engine-web
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/aa8b96c43abe48bf964c07f019307ffe)](https://app.codacy.com/gh/lurkydismal/VN-engine-web?utm_source=github.com&utm_medium=referral&utm_content=lurkydismal/VN-engine-web&utm_campaign=Badge_Grade)
+
 > Not that Visual, but Novel engine.
 
 ## Table of Contents
