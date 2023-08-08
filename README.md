@@ -27,7 +27,7 @@
 * Progress saving.
 * HTML tags in text.
   ``` html
-  _Say( "<strong>Example <span class=\"text-decoration-underline\">Text</span></strong>" );
+  await Say( "<strong>Example <span class=\"text-decoration-underline\">Text</span></strong>" );
   ```
 
 ## Screenshots
