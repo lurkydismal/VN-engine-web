@@ -4,10 +4,14 @@ async function start( _resolve ) {
   console.log( exampleVariable );
 
   MenuName( "<em>" + exampleVariable + "</em>" );
-  await MenuLabel( "<del>Button1</del>", function() { _resolve(); } );
-  await MenuLabel( "<strong>Button2</strong>", function() { _resolve(); } );
-  await MenuLabel( "<mark>Button3</mark>", function() { _resolve(); } );
-  await MenuLabel( "<i>The illusion of free choice</i>", function() { _resolve(); } );
+  await MenuLabel( "<del>Button1</del>", function() { noChoice(); } );
+  await MenuLabel( "<strong>Button2</strong>", function() { noChoice(); } );
+  await MenuLabel( "<mark>Button3</mark>", function() { noChoice() } );
+  await MenuLabel( "<i>The illusion of free choice</i>", function() { noChoice(); } );
+}
+
+async function noChoice( _resolve ) {
+  _resolve();
 }
 
 async function end() {
