@@ -128,25 +128,24 @@ function _LoadSave( _path ) {
 }
 
 function _ParseSave( _lastSave ) {
-  console.log ( _lastSave );
   if ( typeof _lastSave !== "undefined" ) {
     let l_text = "";
 
     g_menuChoices = [];
 
     for ( _decodedSave of decodeURIComponent( _lastSave ) ) {
-      while ( _decodedSave.charAt( 0 ) === " " ) {
-        _decodedSave = _decodedSave.substring( 1 );
-      }
+      // while ( _decodedSave.charAt( 0 ) === " " ) {
+      //   _decodedSave = _decodedSave.substring( 1 );
+      // }
 
       for ( let _symbol of _decodedSave ) {
         if ( _symbol === "\|" ) {
-          g_loadDivCounter = parseInt( unescape( l_text ) );
+          if ( g_loadDivCounter === -1 ) {
+            g_loadDivCounter = parseInt( unescape( l_text ) );
 
-          l_text = "";
-
-        } else if ( _symbol === "\," ) {
-          g_menuChoices.push( unescape( l_text ) );
+          } else {
+            g_menuChoices.push( unescape( l_text ) );
+          }
 
           l_text = "";
 
@@ -171,7 +170,7 @@ function _GenerateSave() {
   let l_saveData = `${ escape( g_divCounter ) }\|`; // Example: "50|choiceValue3,choiceValue11,choiceValue1"
 
   for ( let _menuChoice of g_menuChoices ) {
-    l_saveData += escape( _menuChoice ) + ",";
+    l_saveData += escape( _menuChoice ) + "\|";
   }
 
   return ( l_saveData );
@@ -475,7 +474,7 @@ async function _Say( _text ) {
   g_characterName = "";
   g_textColor     = "";
 
-  setTimeout( async () => {
+  await setTimeout( async () => {
     $( "_div"     + g_divCounter + "_say" ).classList.add( "transition" );
     $( "_divider" + g_divCounter + "_say" ).classList.add( "transition" );
     $( "_div"     + g_divCounter + "_say" ).scrollIntoView();
@@ -596,7 +595,7 @@ async function _MenuLabel( _text, _function ) {
     "<input type=\"text\" class=\"form-control text-center _count" + g_menuCounter +
     `\" oninput=\"${ _text } = this.value\" onpaste=\"this.readOnly = true; _ChooseMenuInput( this, ${ g_menuCounter } ); if ( g_menuCounter > g_menuChoices.length ) { g_menuChoices.push( &quot;${ _text }&quot; ); } !${ _function.toString().replaceAll( "\"", "&quot;") }();\">`;
 
-      setTimeout( async () => {
+      await setTimeout( async () => {
         while ( !g_typingComplete ) {
           await sleep( 20 );
         }
@@ -620,7 +619,7 @@ async function _MenuLabel( _text, _function ) {
     _text +
     "</button>";
 
-      setTimeout( async () => {
+      await setTimeout( async () => {
         while ( !g_typingComplete ) {
           await sleep( 20 );
         }
@@ -691,11 +690,5 @@ const SayEx        = ( _text, _beforeText = "<br>" ) => _SayEx( _text, _beforeTe
 const Scene        = ( _fileName = "none", _appearance = null ) => _Scene( _fileName, _appearance );
 const Show         = ( _filename = null, _appearance = null ) => _Show( _filename, _appearance );
 const MenuName = ( _text ) => _MenuName( _text );
-const MenuLabel = ( _text, _function ) => new Promise( async ( _resolve ) => {
-  await _MenuLabel( _text, _function );
-  _resolve();
-} );
-const WaitInput = ( delay = 500 ) => new Promise( async ( _resolve ) => {
-  await _WaitInput( delay );
-  _resolve();
-} );
+const MenuLabel = ( _text, _function ) => _MenuLabel( _text, _function );
+const WaitInput = ( delay = 500 ) => _WaitInput( delay );
