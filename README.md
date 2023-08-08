@@ -1,5 +1,6 @@
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/402a765a90e84f88bafff0fa8a23fdae)](https://app.codacy.com/gh/lurkydismal/VN-engine-web/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 # VN-engine-web
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/402a765a90e84f88bafff0fa8a23fdae)](https://app.codacy.com/gh/lurkydismal/VN-engine-web/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 > Not that Visual, but Novel engine.
 
@@ -17,14 +18,17 @@
 
 ## Technologies Used
 
-* Typed.js - version 2.0.12
-* Bootstrap - version 5.1.3
+* Typed.js
+* Bootstrap
 
 ## Features
 
 * Easy to extend.
-* Gameplay progess save file.
-* HTML tags use in text. `_Say( "<strong>Example <span class=\"text-decoration-underline\">Text</span></strong>" );`
+* Progress saving.
+* HTML tags in text.
+  ``` html
+  _Say( "<strong>Example <span class=\"text-decoration-underline\">Text</span></strong>" );
+  ```
 
 ## Screenshots
 
@@ -33,14 +37,17 @@
 
 ## Setup
 
-> Upgrade depencies by running  
-`git init`  
-`git submodule foreach git pull origin master`
+> Upgrade dependencies by running
+> ``` console
+> git init
+> git submodule foreach git pull origin master
+> ```
 
 ## Usage
 
-Initial page is **./assets/index.html**  
-Turn on video and audio autoplay.
+**Turn on video and audio auto-play.**
+
+Initial page is **./assets/index.html**
 
 ## Project Status
 
@@ -50,18 +57,16 @@ Project is: _in progress_.
 
 Room for improvement:
 
-* Improve execution speed.
-* Improve RAM usage.
-* Reduce event hooks count.
+* ¯\\\_\(ツ\)\_/¯
 
 To do:
 
-* Add remaining unimplemented features from RenPy.
+* Implement more features from RenPy.
 
 ## Acknowledgements
 
 * This project was inspired by [_RenPy visual novel engine_](https://www.renpy.org/).
-* Many thanks to [_SL1900_](https://github.com/SL1900).
+* Many thanks to [_SL1900_](https://github.com/SL1900/).
 
 ## License
 

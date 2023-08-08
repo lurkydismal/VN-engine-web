@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" X-Content-Type-Options="nosniff" class="h-100">
+
 <head>
   <meta charset="utf-8">
 
@@ -12,40 +13,43 @@
         and Twitter, Inc. Code released under the MIT License.
         Docs released under Creative Commons.
     -->
-  <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap.min.css">
-  <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../bootstrap/dist/css/bootstrap.min.css">
+  <script src="../bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
   <link rel="stylesheet" type="text/css" href="./index.css">
 
   <script src="../std.js"></script>
 </head>
+
 <body class="d-flex h-100 text-center text-white bg-dark">
 
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-  <header class="mb-auto">
-    <div>
-      <h3 class="float-md-start mb-0">Example</h3>
-    </div>
-  </header>
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-auto">
+      <div>
+        <h3 class="float-md-start mb-0">Example</h3>
+      </div>
+    </header>
 
-  <main class="px-3">
-    <div class="container">
-      <p class="lead">
-        <button type="button" class="btn btn-lg btn-secondary fw-bold border-white bg-white" onclick="_Open( '../app/index.html' )">Begin</button>
-      </p>
-    </div>
-  </main>
+    <main class="px-3">
+      <div class="container">
+        <p class="lead">
+          <button type="button" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+            onclick="_Open( '../app/index.html' )">Begin</button>
+        </p>
+      </div>
+    </main>
 
-  <footer class="mt-auto">
-  </footer>
-</div>
+    <footer class="mt-auto">
+    </footer>
+  </div>
 
-<script>
+  <script>
 
-document.ondragstart   = () => false;
-document.onselectstart = () => false;
-document.oncontextmenu = () => false;
-</script>
+    document.ondragstart = () => false;
+    document.onselectstart = () => false;
+    document.oncontextmenu = () => false;
+  </script>
 
 </body>
+
 </html>
