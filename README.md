@@ -34,6 +34,7 @@
 
 ![Example screenshot 1](./screenshots/screenshot_1.png)
 ![Example screenshot 2](./screenshots/screenshot_2.png)
+![Example screenshot 3](./screenshots/screenshot_3.png)
 
 ## Setup
 
