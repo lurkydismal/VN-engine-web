@@ -1,4 +1,11 @@
+var g_resolve;
+
 async function start( _resolve ) {
+  g_resolve = _resolve;
+
+  // Press any button
+  await WaitInput();
+
   await Say( "<ins>Hello, World!</ins>" );
 
   console.log( exampleVariable );
@@ -10,8 +17,8 @@ async function start( _resolve ) {
   await MenuLabel( "<i>The illusion of free choice</i>", function() { noChoice(); } );
 }
 
-async function noChoice( _resolve ) {
-  _resolve();
+async function noChoice() {
+  g_resolve();
 }
 
 async function end() {
