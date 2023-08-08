@@ -1,5 +1,5 @@
 async function start( _resolve ) {
-  await _Say( "Hello, World!" );
+  await Say( "<ins>Hello, World!</ins>" );
 
   console.log( exampleVariable );
 
@@ -13,5 +13,5 @@ async function start( _resolve ) {
 }
 
 async function end() {
-  await _Say( "Ending" );
+  await Say( "Ending" );
 }
