@@ -2,3 +2,7 @@
 	path = assets/bootstrap
 	url = https://github.com/twbs/bootstrap.git
 	branch = main
+[submodule "assets/typed.js"]
+	path = assets/typed.js
+	url = https://github.com/mattboldt/typed.js.git
+	branch = main
