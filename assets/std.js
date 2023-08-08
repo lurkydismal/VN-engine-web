@@ -366,7 +366,7 @@ function _Play( _type, _path, _loop = true ) {
     {
       console.log( `Cannot play ${ _path } , unsupported media type: ${ _type.toString( 10 ) }.` );
     }
-  };
+  }
 }
 
 function _Pause( _type ) {
