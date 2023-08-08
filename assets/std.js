@@ -391,7 +391,7 @@ function _Pause( _type ) {
     {
       console.log( `Cannot stop, unsupported media type: ${ _type.toString( 10 ) }.` );
     }
-  };
+  }
 }
 
 function _Stop( _type ) {
@@ -418,7 +418,7 @@ function _Stop( _type ) {
     {
       console.log( `Cannot stop, unsupported media type: ${ _type.toString( 10 ) }.` );
     }
-  };
+  }
 }
 
 function _Resume( _type ) {
@@ -443,7 +443,7 @@ function _Resume( _type ) {
     {
       console.log( `Cannot stop, unsupported media type: ${ _type.toString( 10 ) }.` );
     }
-  };
+  }
 }
 
 async function _Say( _text ) {
