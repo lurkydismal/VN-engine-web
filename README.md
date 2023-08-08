@@ -41,7 +41,7 @@
 > Upgrade dependencies by running
 > ``` console
 > git init
-> git submodule foreach git pull origin master
+> git submodule update --init --recursive
 > ```
 
 ## Usage
