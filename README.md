@@ -47,6 +47,7 @@
 ## Usage
 
 **Turn on video and audio auto-play.**
+**Don't use | symbol in texts or buttons or elsewhere.**
 
 Initial page is **./assets/index.html**
 
