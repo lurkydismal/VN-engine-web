@@ -39,7 +39,7 @@ function _TransitionEndEventName() {
   for ( let _transition in l_transitions ) {
     if ( typeof l_bodyStyle[ _transition ] !== "undefined" ) {
       return ( l_transitions[ _transition ] );
-    } 
+    }
   }
 }
 
@@ -198,7 +198,7 @@ function _ChooseMenuInput( _this, _index ) {
     _div.removeAttribute( "onclick" );
   }
 
-  _this.classList.add( "Active" );
+  _this.classList.add( "active" );
 }
 
 function _TypingText( _selector, _text ) {
@@ -207,7 +207,7 @@ function _TypingText( _selector, _text ) {
     strings: [
       _text
     ],
-    
+
     // ID of element containing string children
     stringsElement: null,
 
@@ -231,10 +231,10 @@ function _TypingText( _selector, _text ) {
 
     // Fade out instead of backspace
     fadeOut: true,
-    
+
     // CSS class for fade animation
     fadeOutClass: 'typed-fade-out',
-    
+
     // Fade out delay in milliseconds
     fadeOutDelay: 500,
 
@@ -478,12 +478,12 @@ async function _Say( _text ) {
     $( "_div"     + g_divCounter + "_say" ).classList.add( "transition" );
     $( "_divider" + g_divCounter + "_say" ).classList.add( "transition" );
     $( "_div"     + g_divCounter + "_say" ).scrollIntoView();
-    
+
     if ( !!$( "_div" + ( g_divCounter - 5 ) + "_say" ) ) {
       $( "_div"     + ( g_divCounter - 5 ) + "_say" ).parentNode.removeChild( $( "_div"     + ( g_divCounter - 5 ) + "_say" ) );
       $( "_divider" + ( g_divCounter - 5 ) + "_say" ).parentNode.removeChild( $( "_divider" + ( g_divCounter - 5 ) + "_say" ) );
     }
-    
+
     _TypingText( "#_typing" + g_divCounter, _text );
   } );
 
@@ -494,9 +494,9 @@ async function _SayEx( _text, _beforeText = "<br></br>" ) {
   if ( g_divCounter < g_loadDivCounter ) {
     return;
   }
-  
+
   $( "_typing" + g_divCounter ).innerHTML += "<span id=\"_typingEx" + g_divCounter + "\"></span>";
-  
+
   _TypingText( "#_typingEx" + g_divCounter + ":last-of-type", _beforeText + _text );
 
   await _WaitInput();
