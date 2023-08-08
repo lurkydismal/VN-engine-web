@@ -51,11 +51,11 @@ function _GetCookie( _key ) {
   _key += "=";
 
   for ( _decodedCookie of decodeURIComponent( document.cookie ).split( ";" ) ) {
-    while ( _decodedCookie.charAt( 0 ) == " " ) {
+    while ( _decodedCookie.charAt( 0 ) === " " ) {
       _decodedCookie = _decodedCookie.substring( 1 );
     }
 
-    if ( _decodedCookie.indexOf( _key ) == 0 ) {
+    if ( !_decodedCookie.indexOf( _key ) ) {
       return ( _decodedCookie.substring( _key.length, _decodedCookie.length ) );
     }
   }
@@ -81,7 +81,7 @@ function _DownloadFile( _text, _filename = "save.js" ) {
 }
 
 function _ReadFile( _path, _callback = console.log ) {
-  if ( window.location.protocol == "file:" ) {
+  if ( window.location.protocol === "file:" ) {
     let l_element = document.createElement( "input" );
     l_element.setAttribute( "type", "file" );
     l_element.onchange = ( _event ) => {
@@ -108,7 +108,7 @@ function _ReadFile( _path, _callback = console.log ) {
     let l_xmlHttp = new XMLHttpRequest();
 
     l_xmlHttp.onreadystatechange = function() {
-      if ( ( l_xmlHttp.readyState == XMLHttpRequest.DONE ) && ( l_xmlHttp.status == 200 ) ) {
+      if ( ( l_xmlHttp.readyState === XMLHttpRequest.DONE ) && ( l_xmlHttp.status === 200 ) ) {
         _callback( l_xmlHttp.responseText );
       }
     };
@@ -135,17 +135,17 @@ function _ParseSave( _lastSave ) {
     g_menuChoices = [];
 
     for ( _decodedSave of decodeURIComponent( _lastSave ) ) {
-      while ( _decodedSave.charAt( 0 ) == " " ) {
+      while ( _decodedSave.charAt( 0 ) === " " ) {
         _decodedSave = _decodedSave.substring( 1 );
       }
 
       for ( let _symbol of _decodedSave ) {
-        if ( _symbol == "\|" ) {
+        if ( _symbol === "\|" ) {
           g_loadDivCounter = parseInt( unescape( l_text ) );
 
           l_text = "";
 
-        } else if ( _symbol == "\," ) {
+        } else if ( _symbol === "\," ) {
           g_menuChoices.push( unescape( l_text ) );
 
           l_text = "";
@@ -307,7 +307,7 @@ function _PlayBase64( _type, _base64, _fileType = "mp3", _loop = true ) {
       break;
     }
 
-    case media_t.music:
+    case media_t.sound:
     {
       let l_audioSound      = new Audio( `data:audio/${ _fileType };base64, ${ _base64 }` );
       l_audioSound.volume   = ( $( "volumeSounds" ).value / 100 );
@@ -631,7 +631,7 @@ async function _MenuLabel( _text, _function ) {
       } );
     }
   } else {
-    if ( g_menuChoices[ g_menuCounter - 1 ] == _text ) {
+    if ( g_menuChoices[ g_menuCounter - 1 ] === _text ) {
       _function();
     }
   }
