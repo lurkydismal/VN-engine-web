@@ -325,7 +325,7 @@ function _PlayBase64( _type, _base64, _fileType = "mp3", _loop = true ) {
     {
       console.log( `Cannot play, unsupported media type: ${ _type.toString( 10 ) }.` );
     }
-  };
+  }
 }
 
 function _Play( _type, _path, _loop = true ) {
