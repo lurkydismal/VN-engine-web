@@ -32,7 +32,7 @@ function _TransitionEndEventName() {
     "OTransition"     : "oTransitionEnd",
     "MozTransition"   : "transitionend",
     "WebkitTransition": "webkitTransitionEnd"
-  }
+  };
 
   let l_bodyStyle = document.body.style;
 
@@ -654,7 +654,7 @@ const _WaitInput = async function( delay = 500 ) {
 
   g_skipped  = false;
   g_needSkip = false;
-}
+};
 
 function Character( { name = "", color = "#ffffff" } = {} ) {
   g_characterName = name;
