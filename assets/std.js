@@ -204,159 +204,89 @@ function _ChooseMenuInput( _this, _index ) {
 
 function _TypingText( _selector, _text ) {
   let l_typed = new Typed( _selector, {
-    /**
-     * @property {array} strings strings to be typed
-     * @property {string} stringsElement ID of element containing string children
-     */
+    // Strings to be typed
     strings: [
       _text
     ],
+    
+    // ID of element containing string children
     stringsElement: null,
 
-    /**
-     * @property {number} typeSpeed type speed in milliseconds
-     */
+    // Type speed in milliseconds
     typeSpeed: $( "typingSpeed" ).value,
 
-    /**
-     * @property {number} startDelay time before typing starts in milliseconds
-     */
+    // Time before typing starts in milliseconds
     startDelay: 0,
 
-    /**
-     * @property {number} backSpeed backspacing speed in milliseconds
-     */
+    // backspacing speed in milliseconds
     backSpeed: 0,
 
-    /**
-     * @property {boolean} smartBackspace only backspace what doesn't match the previous string
-     */
+    // Only backspace what doesn't match the previous string
     smartBackspace: true,
 
-    /**
-     * @property {boolean} shuffle shuffle the strings
-     */
+    // Shuffle the strings
     shuffle: false,
 
-    /**
-     * @property {number} backDelay time before backspacing in milliseconds
-     */
+    // Time before backspacing in milliseconds
     backDelay: 700,
 
-    /**
-     * @property {boolean} fadeOut Fade out instead of backspace
-     * @property {string} fadeOutClass css class for fade animation
-     * @property {boolean} fadeOutDelay Fade out delay in milliseconds
-     */
+    // Fade out instead of backspace
     fadeOut: true,
+    
+    // CSS class for fade animation
     fadeOutClass: 'typed-fade-out',
+    
+    // Fade out delay in milliseconds
     fadeOutDelay: 500,
 
-    /**
-     * @property {boolean} loop loop strings
-     * @property {number} loopCount amount of loops
-     */
+    // Loop strings
     loop: false,
+
+    // Amount of loops
     loopCount: Infinity,
 
-    /**
-     * @property {boolean} showCursor show cursor
-     * @property {string} cursorChar character for cursor
-     * @property {boolean} autoInsertCss insert CSS for cursor and fadeOut into HTML <head>
-     */
+    // Show cursor
     showCursor: false,
+
+    // Character for cursor
     cursorChar: "_",
+
+    // Insert CSS for cursor and fadeOut into HTML <head>
     autoInsertCss: true,
 
-    /**
-     * @property {string} attr attribute for typing
-     * Ex: input placeholder, value, or just HTML text
-     */
+    // Attribute for typing
+    // Ex: input placeholder, value, or just HTML text
     attr: null,
 
-    /**
-     * @property {boolean} bindInputFocusEvents bind to focus and blur if el is text input
-     */
+    // Bind to focus and blur if el is text input
     bindInputFocusEvents: false,
 
-    /**
-     * @property {string} contentType 'html' or 'null' for plaintext
-     */
+    // "html" or "null" for plaintext
     contentType: "html",
 
-    /**
-     * Before it begins typing
-     * @param {Typed} self
-     */
     onBegin: ( self ) => { console.log( "begin" ); },
 
-    /**
-     * All typing is complete
-     * @param {Typed} self
-     */
     onComplete: ( self ) => {
       console.log( "complete" );
       g_typingComplete = true;
     },
 
-    /**
-     * Before each string is typed
-     * @param {number} arrayPos
-     * @param {Typed} self
-     */
     preStringTyped: ( arrayPos, self ) => { console.log( "pre" ); },
 
-    /**
-     * After each string is typed
-     * @param {number} arrayPos
-     * @param {Typed} self
-     */
     onStringTyped: ( arrayPos, self ) => { console.log( "typed" ); },
 
-    /**
-     * During looping, after last string is typed
-     * @param {Typed} self
-     */
     onLastStringBackspaced: ( self ) => { console.log( "last" ); },
 
-    /**
-     * Typing has been stopped
-     * @param {number} arrayPos
-     * @param {Typed} self
-     */
     onTypingPaused: ( arrayPos, self ) => { console.log( "paused" ); },
 
-    /**
-     * Typing has been started after being stopped
-     * @param {number} arrayPos
-     * @param {Typed} self
-     */
     onTypingResumed: ( arrayPos, self ) => { console.log( "resumed" ); },
 
-    /**
-     * After reset
-     * @param {Typed} self
-     */
     onReset: ( self ) => { console.log( "reset" ); },
 
-    /**
-     * After stop
-     * @param {number} arrayPos
-     * @param {Typed} self
-     */
     onStop: ( arrayPos, self ) => { console.log( "stop" ); },
 
-    /**
-     * After start
-     * @param {number} arrayPos
-     * @param {Typed} self
-     */
     onStart: ( arrayPos, self ) => { console.log( "start" ); },
 
-    /**
-     * After destroy
-     * @param {Typed} self
-     */
     onDestroy: ( self ) => { console.log( "destroy" ); }
   } );
 }
