@@ -490,7 +490,7 @@ async function _Say( _text ) {
   await _WaitInput();
 }
 
-async function _SayEx( _text, _beforeText = "<br>" ) {
+async function _SayEx( _text, _beforeText = "<br></br>" ) {
   if ( g_divCounter < g_loadDivCounter ) {
     return;
   }
@@ -617,7 +617,8 @@ async function _MenuLabel( _text, _function ) {
       " btn-lg px-4 _count" + g_menuCounter +
       `\" onclick=\"_ChooseMenuInput( this, ${ g_menuCounter } ); if ( g_menuCounter > g_menuChoices.length ) { g_menuChoices.push( &quot;${ _text }&quot; ); } !${ _function.toString().replaceAll( "\"", "&quot;") }();\">` +
     _text +
-    "</button>";
+    "</button>" +
+    "<br></br>";
 
       await setTimeout( async () => {
         while ( !g_typingComplete ) {
@@ -686,7 +687,7 @@ const Pause        = ( _type ) => _Pause( _type );
 const Stop         = ( _type ) => _Stop( _type );
 const Resume       = ( _type ) => _Resume( _type );
 const Say          = ( _text ) => _Say( _text );
-const SayEx        = ( _text, _beforeText = "<br>" ) => _SayEx( _text, _beforeText );
+const SayEx        = ( _text, _beforeText = "<br></br>" ) => _SayEx( _text, _beforeText );
 const Scene        = ( _fileName = "none", _appearance = null ) => _Scene( _fileName, _appearance );
 const Show         = ( _filename = null, _appearance = null ) => _Show( _filename, _appearance );
 const MenuName = ( _text ) => _MenuName( _text );
