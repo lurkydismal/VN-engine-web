@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" X-Content-Type-Options="nosniff">
+
 <head>
   <meta charset="utf-8">
 
@@ -8,36 +9,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-video {  
-  width:      100vw;
-  height:     100vh;
-  object-fit: fill;
-  position:   fixed;
-  top:        0;
-  left:       0;
-}
+    video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: fill;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
   </style>
 </head>
+
 <body>
   <script src="./std.js"></script>
 
   <script>
-    document.ondragstart   = () => false;
+    document.ondragstart = () => false;
     document.onselectstart = () => false;
     document.oncontextmenu = () => false;
 
     var g_autoplaySupported = false;
 
     function _AutoplayCheck() {
-      if ( !g_autoplaySupported ) {
-        console.log( "Please turn on media autoplay." );
-        alert(       "Please turn on media autoplay." );
+      if (!g_autoplaySupported) {
+        console.log("Please turn on media autoplay.");
+        alert("Please turn on media autoplay.");
       }
     }
   </script>
 
-<video id="video" playsinline autoplay onplay="g_autoplaySupported = true" onclick="( this.currentTime > 2 ) ? _Open( './mainMenu/index.html' ) : _AutoplayCheck()" onended="_Open( './mainMenu/index.html' )">
-  <source src="./index.mp4" type="video/mp4">
-</video>
+  <video id="video" playsinline autoplay onplay="g_autoplaySupported = true"
+    onclick="( this.currentTime > 2 ) ? _Open( './mainMenu/index.html' ) : _AutoplayCheck()"
+    onended="_Open( './mainMenu/index.html' )">
+    <source src="./index.mp4" type="video/mp4">
+  </video>
 </body>
+
 </html>
