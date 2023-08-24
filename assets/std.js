@@ -118,12 +118,17 @@ function _ReadFile( _path, _callback = console.log ) {
   }
 }
 
-function _LoadSave( _path, _useLocalStorage = true ) {
-  if ( !!_GetCookie( "hasCookie" ) ) {
-    _ParseSave( _GetCookie( "_lastSave" ) );
+function _LoadSave( _path, _useLocalStorage = false ) {
+  if ( _useLocalStorage ) {
+    _ParseSave( localStorage.getItem( "_lastSave" ) );
 
   } else {
-    _ReadFile( "", _ParseSave );
+    if ( !!_GetCookie( "hasCookie" ) ) {
+      _ParseSave( _GetCookie( "_lastSave" ) );
+
+    } else {
+      _ReadFile( "", _ParseSave );
+    }
   }
 }
 
@@ -157,12 +162,17 @@ function _ParseSave( _lastSave ) {
   }
 }
 
-function _CreateSave() {
-  if ( !!_GetCookie( "hasCookie" ) ) {
-    _SetCookie( "_lastSave", _GenerateSave() );
+function _CreateSave( _useLocalStorage = false ) {
+  if ( _useLocalStorage ) {
+    localStorage.setItem( "_lastSave", _GenerateSave() );
 
   } else {
-    _DownloadFile( `${ encodeURIComponent( _GenerateSave() ) }`, "lastsave.txt" );
+    if ( !!_GetCookie( "hasCookie" ) ) {
+      _SetCookie( "_lastSave", _GenerateSave() );
+
+    } else {
+      _DownloadFile( `${ encodeURIComponent( _GenerateSave() ) }`, "lastsave.txt" );
+    }
   }
 }
 
@@ -673,11 +683,11 @@ const GetCookie               = ( _key )         => _GetCookie( _key );
 const DeleteCookie            = ( _key )         => _DeleteCookie( _key );
 const DownloadFile            = ( _text, _filename = "save.js" )       => _DownloadFile( _text, _filename );
 const ReadFile                = ( _path, _callback = console.log )     => _ReadFile( _path, _callback );
-const LoadSave                = ( _path, _useLocalStorage = true )     => _LoadSave( _path, _useLocalStorage );
-const ParseSave               = ( _lastSave ) => _ParseSave( _lastSave );
-const CreateSave              = ()            => _CreateSave();
-const GenerateSave            = ()            => _GenerateSave();
-const Open                    = ( _file )     => _Open( _file );
+const LoadSave                = ( _path, _useLocalStorage = false )    => _LoadSave( _path, _useLocalStorage );
+const ParseSave               = ( _lastSave )                          => _ParseSave( _lastSave );
+const CreateSave              = ( _useLocalStorage = false )           => _CreateSave( _useLocalStorage );
+const GenerateSave            = ()                => _GenerateSave();
+const Open                    = ( _file )         => _Open( _file );
 const GetCountOfChildElements = ( _parent )       => _GetCountOfChildElements( _parent );
 const ChooseMenuInput         = ( _this, _index ) => _ChooseMenuInput( _this, _index );
 const TypingText              = ( _selector, _text )                                => _TypingText( _selector, _text );
