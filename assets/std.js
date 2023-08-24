@@ -118,7 +118,7 @@ function _ReadFile( _path, _callback = console.log ) {
   }
 }
 
-function _LoadSave( _path ) {
+function _LoadSave( _path, _useLocalStorage = true ) {
   if ( !!_GetCookie( "hasCookie" ) ) {
     _ParseSave( _GetCookie( "_lastSave" ) );
 
@@ -667,29 +667,29 @@ function Character( { name = "", color = "#ffffff" } = {} ) {
 
 // Function aliases
 
-const TransitionEndEventName = ()     => _TransitionEndEventName();
-const SetCookie    = ( _key, _value ) => _SetCookie( _key, _value );
-const GetCookie    = ( _key )         => _GetCookie( _key );
-const DeleteCookie = ( _key )         => _DeleteCookie( _key );
-const DownloadFile = ( _text, _filename = "save.js" )   => _DownloadFile( _text, _filename );
-const ReadFile     = ( _path, _callback = console.log ) => _ReadFile( _path, _callback );
-const LoadSave     = ( _path )     => _LoadSave( _path );
-const ParseSave    = ( _lastSave ) => _ParseSave( _lastSave );
-const CreateSave   = ()            => _CreateSave();
-const GenerateSave = ()            => _GenerateSave();
-const Open         = ( _file )     => _Open( _file );
+const TransitionEndEventName  = ()               => _TransitionEndEventName();
+const SetCookie               = ( _key, _value ) => _SetCookie( _key, _value );
+const GetCookie               = ( _key )         => _GetCookie( _key );
+const DeleteCookie            = ( _key )         => _DeleteCookie( _key );
+const DownloadFile            = ( _text, _filename = "save.js" )       => _DownloadFile( _text, _filename );
+const ReadFile                = ( _path, _callback = console.log )     => _ReadFile( _path, _callback );
+const LoadSave                = ( _path, _useLocalStorage = true )     => _LoadSave( _path, _useLocalStorage );
+const ParseSave               = ( _lastSave ) => _ParseSave( _lastSave );
+const CreateSave              = ()            => _CreateSave();
+const GenerateSave            = ()            => _GenerateSave();
+const Open                    = ( _file )     => _Open( _file );
 const GetCountOfChildElements = ( _parent )       => _GetCountOfChildElements( _parent );
 const ChooseMenuInput         = ( _this, _index ) => _ChooseMenuInput( _this, _index );
-const TypingText   = ( _selector, _text )         => _TypingText( _selector, _text );
-const PlayBase64   = ( _type, _base64, _fileType = "mp3", _loop = true ) => _PlayBase64( _type, _base64, _fileType, _loop = true );
-const Play         = ( _type, _path, _loop = true ) => _Play( _type, _path, _loop );
-const Pause        = ( _type ) => _Pause( _type );
-const Stop         = ( _type ) => _Stop( _type );
-const Resume       = ( _type ) => _Resume( _type );
-const Say          = ( _text ) => _Say( _text );
-const SayEx        = ( _text, _beforeText = "<br></br>" ) => _SayEx( _text, _beforeText );
-const Scene        = ( _fileName = "none", _appearance = null ) => _Scene( _fileName, _appearance );
-const Show         = ( _filename = null, _appearance = null ) => _Show( _filename, _appearance );
-const MenuName = ( _text ) => _MenuName( _text );
-const MenuLabel = ( _text, _function ) => _MenuLabel( _text, _function );
-const WaitInput = ( delay = 500 ) => _WaitInput( delay );
+const TypingText              = ( _selector, _text )                                => _TypingText( _selector, _text );
+const PlayBase64              = ( _type, _base64, _fileType = "mp3", _loop = true ) => _PlayBase64( _type, _base64, _fileType, _loop = true );
+const Play                    = ( _type, _path, _loop = true )                      => _Play( _type, _path, _loop );
+const Pause                   = ( _type ) => _Pause( _type );
+const Stop                    = ( _type ) => _Stop( _type );
+const Resume                  = ( _type ) => _Resume( _type );
+const Say                     = ( _text ) => _Say( _text );
+const SayEx                   = ( _text, _beforeText = "<br></br>" )       => _SayEx( _text, _beforeText );
+const Scene                   = ( _fileName = "none", _appearance = null ) => _Scene( _fileName, _appearance );
+const Show                    = ( _filename = null, _appearance = null )   => _Show( _filename, _appearance );
+const MenuName                = ( _text )            => _MenuName( _text );
+const MenuLabel               = ( _text, _function ) => _MenuLabel( _text, _function );
+const WaitInput               = ( delay = 500 )      => _WaitInput( delay );
