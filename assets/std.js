@@ -139,10 +139,6 @@ function _ParseSave( _lastSave ) {
     g_menuChoices = [];
 
     for ( _decodedSave of decodeURIComponent( _lastSave ) ) {
-      // while ( _decodedSave.charAt( 0 ) === " " ) {
-      //   _decodedSave = _decodedSave.substring( 1 );
-      // }
-
       for ( let _symbol of _decodedSave ) {
         if ( _symbol === "\|" ) {
           if ( g_loadDivCounter === -1 ) {
